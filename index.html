@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text2 Post </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #222;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .post {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-3px);
+    }
+
+    .post-title {
+      font-size: 1.5em;
+      color: #007acc;
+      text-decoration: none;
+    }
+
+    .post-title:hover {
+      text-decoration: underline;
+    }
+
+    .post-date {
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    .loading {
+      text-align: center;
+      color: #666;
+      padding: 50px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Text2 Post </h1>
+    <p>HI Guys </p>
+  </header>
+
+  <main id="post-list">
+    <div class="loading">Đang tải bài viết...</div>
+  </main>
+
+  <footer>
+    &copy; 2025 • Blog tĩnh chạy trên GitHub Pages
+  </footer>
+
+<script>
+  const blogDir = 'blog/';
+  // Các file HTML bài viết (thêm ở đây)
+  const posts = [
+    { file: 'post1.html', title: 'Tiêu đề bài viết 1', date: '2025-07-02' },
+    { file: 'post2.html', title: 'Tiêu đề bài viết 2', date: '2025-07-01' },
+  ];
+
+  function loadPosts() {
+    const container = document.getElementById('post-list');
+    container.innerHTML = '';
+
+    // Sắp xếp bài viết theo ngày giảm dần
+    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    posts.forEach(post => {
+      const el = document.createElement('div');
+      el.className = 'post';
+      el.innerHTML = `
+        <a class="post-title" href="${blogDir}${post.file}" target="_blank">${post.title}</a>
+        <div class="post-date">${post.date}</div>
+      `;
+      container.appendChild(el);
+    });
+  }
+
+  loadPosts();
+</script>
+
+</body>
+</html>
