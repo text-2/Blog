@@ -455,6 +455,25 @@
         font-size: 1.2rem;
       }
     }
+
+    /* Thêm CSS cho thumbnail */
+    .post-thumb {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      background: #f3f3f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -559,9 +578,11 @@
       const text = await res.text();
       const titleMatch = text.match(/<title>(.*?)<\/title>/i);
       const dateMatch = text.match(/meta name="date" content="(.*?)"/i);
+      const imgMatch = text.match(/<img[^>]+src=["']([^"'>]+)["']/i);
       return {
         title: titleMatch ? titleMatch[1] : path,
         date: dateMatch ? dateMatch[1] : '',
+        thumbnail: imgMatch ? imgMatch[1] : null,
       };
     }
 
@@ -627,6 +648,7 @@
           const postCard = document.createElement('div');
           postCard.className = 'post-card';
           postCard.innerHTML = `
+            ${post.thumbnail ? `<div class="post-thumb"><img src="${post.thumbnail}" alt="Thumbnail" loading="lazy"></div>` : ''}
             <div class="post-meta">
               <div class="post-date">
                 <i class="far fa-calendar-alt"></i>
